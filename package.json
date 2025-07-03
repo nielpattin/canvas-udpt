@@ -1,11 +1,11 @@
 {
   "name": "canvas-udpt",
+  "scripts": {
+    "dev": "nodemon serve.js"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -14,5 +14,8 @@
     "better-sqlite3": "^12.2.0",
     "cheerio": "^1.1.0",
     "fast-csv": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
