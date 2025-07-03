@@ -1,30 +1,38 @@
-// Node.js static file server + API for quiz_search.html and SQLite
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const url = require('url');
-const Database = require('better-sqlite3');
+import express from 'express';
+import { existsSync, mkdirSync, unlinkSync, renameSync } from 'fs';
+import { join, extname } from 'path';
+import Database from 'better-sqlite3';
+import multer from 'multer';
 
 const PORT = 8080;
-const MIME = {
-  '.html': 'text/html',
-  '.js': 'application/javascript',
-  '.json': 'application/json',
-  '.css': 'text/css',
-  '.ico': 'image/x-icon'
-};
-
+const app = express();
 const db = new Database('data/quiz.db');
 
+// Multer setup for image uploads
+const imagesDir = join(process.cwd(), 'images');
+if (!existsSync(imagesDir)) mkdirSync(imagesDir);
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => cb(null, imagesDir),
+    filename: (req, file, cb) => {
+      // Use a temporary filename; we'll rename after parsing fields
+      cb(null, 'temp_' + Date.now() + extname(file.originalname).toLowerCase());
+    }
+  }),
+  fileFilter: (req, file, cb) => {
+    const allowed = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+    cb(null, allowed.includes(extname(file.originalname).toLowerCase()));
+  }
+});
+
+// Helper: get closest quiz
 function getClosestQuiz(query) {
   if (!query || !query.trim()) return null;
-  // Simple LIKE search for demo, returns the first match
   const stmt = db.prepare(
     "SELECT * FROM quizzes WHERE question_text LIKE ? ORDER BY LENGTH(question_text) LIMIT 1"
   );
   let row = stmt.get(`%${query}%`);
   if (!row) {
-    // fallback: return the question with the most word overlap
     const all = db.prepare("SELECT * FROM quizzes").all();
     const norm = s => s.toLowerCase().replace(/\s+/g, ' ').trim();
     const inputWords = new Set(norm(query).split(' '));
@@ -48,26 +56,63 @@ function getClosestQuiz(query) {
   };
 }
 
-http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
-  if (parsedUrl.pathname === '/api/search') {
-    const q = parsedUrl.query.q || '';
-    const quiz = getClosestQuiz(q);
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(quiz || {}));
-    return;
-  }
+// API: search quiz
+app.get('/api/search', (req, res) => {
+  const q = req.query.q || '';
+  const quiz = getClosestQuiz(q);
+  res.json(quiz || {});
+});
 
-  let filePath = '.' + decodeURIComponent(req.url.split('?')[0]);
-  if (filePath === './') filePath = './quiz_search.html';
-  if (!fs.existsSync(filePath)) {
-    res.writeHead(404);
-    res.end('Not found');
-    return;
+// API: get image extension for question
+app.get('/api/question_image_ext', (req, res) => {
+  const { question_id } = req.query;
+  if (!question_id) return res.status(400).json({ ext: '' });
+  const exts = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+  for (const ext of exts) {
+    if (existsSync(join(imagesDir, question_id + ext))) {
+      return res.json({ ext });
+    }
   }
-  const ext = path.extname(filePath);
-  res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
-  fs.createReadStream(filePath).pipe(res);
-}).listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+  res.json({ ext: '' });
+});
+
+// API: upload image
+app.post('/api/upload_image', (req, res, next) => {
+  upload.any()(req, res, function (err) {
+    let question_id = req.body.question_id;
+    const file = req.files && req.files.find(f => f.fieldname === 'image');
+    if (err || !file || !question_id) {
+      return res.status(400).json({ success: false, error: err?.message || 'Missing file or question_id' });
+    }
+    // Remove old images for this question
+    const exts = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+    for (const ext of exts) {
+      const oldPath = join(imagesDir, question_id + ext);
+      if (existsSync(oldPath)) unlinkSync(oldPath);
+    }
+    // Rename uploaded file to question_id + ext
+    const newFilename = question_id + extname(file.originalname).toLowerCase();
+    const oldPath = file.path;
+    const newPath = join(imagesDir, newFilename);
+    renameSync(oldPath, newPath);
+    res.json({ success: true, filename: newFilename });
+  });
+});
+
+// Serve images statically
+app.use('/images', express.static(imagesDir, {
+  maxAge: '30d', // Cache images for 30 days
+  immutable: true // Mark as immutable for aggressive caching
+}));
+
+// Serve static files (quiz_search.html, etc.)
+app.use(express.static(process.cwd(), { extensions: ['html'] }));
+
+// Serve quiz_search.html at root
+app.get('/', (req, res) => {
+  res.sendFile(join(process.cwd(), 'quiz_search.html'));
+});
+
+app.listen(PORT, () => {
+  console.log(`Express server running at http://localhost:${PORT}/`);
 });

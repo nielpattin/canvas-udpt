@@ -72,6 +72,79 @@
       font-weight: 500;
     }
   </style>
+  <style>
+    /* Modal styles */
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal .modal-content {
+      background: #fff;
+      padding: 32px 40px;
+      border-radius: 12px;
+      text-align: center;
+      min-width: 320px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed #aaa;
+      cursor: pointer;
+    }
+    #imageModal.dragover .modal-content {
+      border-color: #219a00;
+      background: #eaffea;
+    }
+    #imageModal .close-btn {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #888;
+    }
+    #imagePreview {
+      max-width: 220px;
+      max-height: 120px;
+      margin: 12px auto 0 auto;
+      display: block;
+    }
+    .upload-btn {
+      margin-top: 16px;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background: #219a00;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .img-section {
+      margin-top: 18px;
+      margin-bottom: 8px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .img-section img {
+      max-width: 220px;
+      max-height: 120px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      border: 1px solid #ccc;
+    }
+    .img-section .upload-btn {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -79,6 +152,16 @@
       <input id="searchInput" type="text" placeholder="Paste your question here..." autocomplete="off" />
     </div>
     <div id="result"></div>
+    <!-- Modal for image upload -->
+    <div id="imageModal">
+      <div class="modal-content" id="modalContent">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <div id="modalText">Drag & drop image here or click to select</div>
+        <input type="file" id="modalFileInput" accept="image/*" style="display:none" />
+        <img id="imagePreview" style="display:none" />
+        <button class="upload-btn" id="uploadBtn" style="display:none">Upload</button>
+      </div>
+    </div>
   </div>
   <script>
     async function fetchQuiz(q) {
@@ -92,12 +175,24 @@
 
     function renderResult(question) {
       const resultDiv = document.getElementById('result');
+      lastQuizObj = question;
       if (!question) {
         resultDiv.innerHTML = '';
+        currentQuestionId = null;
         return;
       }
+      currentQuestionId = question.question_id;
       let html = `<div class="card">
-        <div class="question">${question.question_text}</div>`;
+        <div style="display: flex; align-items: flex-start; gap: 18px;">
+          <div class="question" style="margin-bottom:0;">${question.question_text}</div>
+          <div class="img-section" id="imgSection" style="margin-top:0;">
+            <img id="questionImage" style="display:none; margin-bottom:0; max-width:220px; max-height:120px; border-radius:8px; border:1px solid #ccc;" />
+            <button class="upload-btn" type="button" id="showUploadBtn" style="margin-top:8px;" disabled>Upload Image</button>
+          </div>
+        </div>
+      `;
+
+      // Answers
       for (const ans of question.answers) {
         html += `<div class="answer-row">
           <input type="checkbox" class="answer-checkbox" disabled ${ans.is_correct ? 'checked' : ''}>
@@ -106,10 +201,149 @@
       }
       html += `</div>`;
       resultDiv.innerHTML = html;
+
+      // After rendering, check which image exists and show it (no more 404 spam)
+      const imgElem = document.getElementById('questionImage');
+      (async () => {
+        try {
+          const resp = await fetch(`/api/question_image_ext?question_id=${question.question_id}`);
+          const data = await resp.json();
+          if (data.ext) {
+            const imgUrl = `/images/${question.question_id}${data.ext}`;
+            imgElem.src = imgUrl;
+            imgElem.style.display = 'block';
+          } else {
+            imgElem.style.display = 'none';
+          }
+        } catch (e) {
+          imgElem.style.display = 'none';
+        }
+      })();
+
+      // Add upload button logic
+      // Set upload button handler only once
+      const uploadBtn = document.getElementById('showUploadBtn');
+      if (uploadBtn) {
+        // Enable button only if question is selected
+        uploadBtn.disabled = !currentQuestionId;
+        uploadBtn.onclick = function() {
+          if (!currentQuestionId) {
+            alert('Please search and select a question before uploading an image.');
+            return;
+          }
+          showImageModal();
+        };
+      }
+
+      // Add upload button logic
+      // (Removed duplicate uploadBtn declaration)
     }
 
+    // Helper: get image URL for question
+    function getImageUrl(question_id) {
+      if (!question_id) return null;
+      // Try common extensions
+      const exts = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+      for (const ext of exts) {
+        const url = `/images/${question_id}${ext}`;
+        // Synchronous check not possible, so just try .png first, then .jpg, etc.
+        // We'll try to load the image and onerror fallback to next.
+        return url;
+      }
+      return null;
+    }
+
+    // Modal logic
+    let currentImageFile = null;
+    let currentQuestionId = null;
+
+    function showImageModal() {
+      document.getElementById('imageModal').style.display = 'flex';
+      document.getElementById('modalText').style.display = '';
+      document.getElementById('imagePreview').style.display = 'none';
+      document.getElementById('uploadBtn').style.display = 'none';
+      currentImageFile = null;
+    }
+    function hideImageModal() {
+      document.getElementById('imageModal').style.display = 'none';
+      currentImageFile = null;
+    }
+
+    document.getElementById('closeModal').onclick = hideImageModal;
+
+    // Modal drag/drop and click
+    const modalContent = document.getElementById('modalContent');
+    // Removed click-to-open file picker. Only drag-and-drop or file input change allowed.
+    modalContent.addEventListener('dragover', e => {
+      e.preventDefault();
+      document.getElementById('imageModal').classList.add('dragover');
+    });
+    modalContent.addEventListener('dragleave', e => {
+      e.preventDefault();
+      document.getElementById('imageModal').classList.remove('dragover');
+    });
+    modalContent.addEventListener('drop', e => {
+      e.preventDefault();
+      document.getElementById('imageModal').classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      handleFileSelected(file);
+    });
+    document.getElementById('modalFileInput').addEventListener('change', e => {
+      const file = e.target.files[0];
+      handleFileSelected(file);
+    });
+
+    function handleFileSelected(file) {
+      if (!file) return;
+      currentImageFile = file;
+      // Preview
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        document.getElementById('imagePreview').src = ev.target.result;
+        document.getElementById('imagePreview').style.display = '';
+        document.getElementById('modalText').style.display = 'none';
+        document.getElementById('uploadBtn').style.display = '';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    document.getElementById('uploadBtn').onclick = async function() {
+      if (!currentImageFile) return;
+      if (!currentQuestionId) {
+        alert('No question selected. Please search and select a question before uploading an image.');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('image', currentImageFile);
+      formData.append('question_id', currentQuestionId);
+      // Remove debug logs
+      const res = await fetch('/api/upload_image', {
+        method: 'POST',
+        body: formData
+      });
+      if (res.ok) {
+        hideImageModal();
+        // Refresh result to show new image
+        renderResult(lastQuizObj);
+      } else {
+        alert('Upload failed');
+      }
+    };
+
+    // Render result with image section
+    let lastQuizObj = null;
+
     let lastQuery = '';
-    document.getElementById('searchInput').addEventListener('input', async function(e) {
+    // Debounce utility
+    function debounce(fn, delay) {
+      let timer = null;
+      return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+      };
+    }
+    
+    document.getElementById('searchInput').addEventListener('input', debounce(async function(e) {
       const val = e.target.value;
       lastQuery = val;
       if (!val.trim()) {
@@ -119,7 +353,7 @@
       const quiz = await fetchQuiz(val);
       // Prevent race condition
       if (lastQuery === val) renderResult(quiz);
-    });
+    }, 400));
   </script>
 </body>
 </html>
