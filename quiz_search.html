@@ -18,14 +18,27 @@
       max-width: 700px;
       margin: 0 auto;
       display: flex;
-      flex-direction: column;
+      flex-direction: column; /* Default: column for centering search bar */
+      justify-content: center;
       align-items: center;
     }
+    .container.has-result-layout {
+      flex-direction: row; /* When result is present, become a row */
+      align-items: center; /* Align items to the center vertically */
+      justify-content: flex-start; /* Align to start */
+      gap: 32px; /* Space between search bar and card */
+    }
     .search-bar {
-      width: 80%;
-      margin: 40px 0 24px 0;
-      display: flex;
-      justify-content: center;
+      width: 100%; /* Take full width of container's content area */
+      max-width: 500px; /* Limit its actual width */
+      margin: 40px auto 24px auto; /* Center horizontally with auto margins */
+      display: block; /* Make it a block element for auto margins to work */
+    }
+    .container.has-result-layout .search-bar {
+      width: 250px; /* Smaller width when in row layout */
+      margin: 0; /* Remove margins when in row layout */
+      display: flex; /* Revert to flex for internal input centering if needed */
+      justify-content: center; /* Keep input centered within its flex item */
     }
     .search-bar input {
       width: 100%;
@@ -36,13 +49,20 @@
       outline: none;
       box-sizing: border-box;
     }
+    #result {
+      /* No initial styles needed here, as it's empty */
+    }
+    .container.has-result-layout #result {
+      flex: 1; /* Take remaining space when in row layout */
+      min-width: 0;
+    }
     .card {
-      width: 80%;
+      width: 100%; /* Card takes full width of #result */
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       padding: 24px 28px;
-      margin-top: 12px;
+      margin-top: 0; /* Reset margin-top */
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -133,9 +153,14 @@
       flex-direction: column;
       align-items: flex-start;
     }
+    .img-section.row {
+      flex-direction: row !important;
+      align-items: flex-start;
+      gap: 16px;
+    }
     .img-section img {
-      max-width: 220px;
-      max-height: 120px;
+      max-width: 100%;
+      height: auto; /* Change to auto to prevent stretching */
       border-radius: 8px;
       margin-bottom: 6px;
       border: 1px solid #ccc;
@@ -147,7 +172,7 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="mainContainer">
     <div class="search-bar">
       <input id="searchInput" type="text" placeholder="Paste your question here..." autocomplete="off" />
     </div>
@@ -175,20 +200,20 @@
 
     function renderResult(question) {
       const resultDiv = document.getElementById('result');
+      const mainContainer = document.getElementById('mainContainer'); // Get the container div
       lastQuizObj = question;
       if (!question) {
         resultDiv.innerHTML = '';
         currentQuestionId = null;
+        mainContainer.classList.remove('has-result-layout'); // Remove class when no result
         return;
       }
       currentQuestionId = question.question_id;
       let html = `<div class="card">
-        <div style="display: flex; align-items: flex-start; gap: 18px;">
-          <div class="question" style="margin-bottom:0;">${question.question_text}</div>
-          <div class="img-section" id="imgSection" style="margin-top:0;">
-            <img id="questionImage" style="display:none; margin-bottom:0; max-width:220px; max-height:120px; border-radius:8px; border:1px solid #ccc;" />
-            <button class="upload-btn" type="button" id="showUploadBtn" style="margin-top:8px;" disabled>Upload Image</button>
-          </div>
+        <div class="question" style="margin-bottom:0;">${question.question_text}</div>
+        <div class="img-section" id="imgSection" style="margin-top:12px; flex-direction: row; align-items: flex-start; gap: 16px;">
+          <img id="questionImage" style="display:none; margin-bottom:0; max-width:100%; height:100%; border-radius:8px; border:1px solid #ccc;" />
+          <button class="upload-btn" type="button" id="showUploadBtn" style="margin-left:12px;" disabled>Upload Image</button>
         </div>
       `;
 
@@ -201,6 +226,7 @@
       }
       html += `</div>`;
       resultDiv.innerHTML = html;
+      mainContainer.classList.add('has-result-layout'); // Add class when result is present
 
       // After rendering, check which image exists and show it (no more 404 spam)
       const imgElem = document.getElementById('questionImage');

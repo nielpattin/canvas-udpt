@@ -28,24 +28,20 @@ const upload = multer({
 // Helper: get closest quiz
 function getClosestQuiz(query) {
   if (!query || !query.trim()) return null;
-  const stmt = db.prepare(
-    "SELECT * FROM quizzes WHERE question_text LIKE ? ORDER BY LENGTH(question_text) LIMIT 1"
-  );
-  let row = stmt.get(`%${query}%`);
+  const norm = s => s.toLowerCase().replace(/\s+/g, ' ').trim();
+  const inputNorm = norm(query);
+  // Only match if input matches the first word of question_text
+  const all = db.prepare("SELECT * FROM quizzes").all();
+  let row = all.find(q => {
+    const firstWord = norm(q.question_text).split(' ')[0];
+    return firstWord.startsWith(inputNorm);
+  });
   if (!row) {
-    const all = db.prepare("SELECT * FROM quizzes").all();
-    const norm = s => s.toLowerCase().replace(/\s+/g, ' ').trim();
-    const inputWords = new Set(norm(query).split(' '));
-    let best = null, bestScore = -1;
-    for (const q of all) {
-      const qWords = new Set(norm(q.question_text).split(' '));
-      const common = [...inputWords].filter(w => qWords.has(w)).length;
-      if (common > bestScore) {
-        bestScore = common;
-        best = q;
-      }
-    }
-    row = best;
+    // fallback: LIKE search for demo, returns the first match
+    const stmt = db.prepare(
+      "SELECT * FROM quizzes WHERE question_text LIKE ? ORDER BY LENGTH(question_text) LIMIT 1"
+    );
+    row = stmt.get(`${inputNorm}%`);
   }
   if (!row) return null;
   return {
