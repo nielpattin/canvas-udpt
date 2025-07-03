@@ -382,6 +382,17 @@
   window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('searchInput').focus();
   });
+// Autofill search input on any paste event
+document.addEventListener('paste', function (e) {
+  const pasted = (e.clipboardData || window.clipboardData).getData('text');
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput && pasted) {
+    searchInput.value = pasted;
+    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+    searchInput.focus();
+    e.preventDefault();
+  }
+});
   </script>
 </body>
 </html>

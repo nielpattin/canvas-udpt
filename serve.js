@@ -43,21 +43,7 @@ function getClosestQuiz(query) {
     row = stmt.get(`%${inputNorm}%`);
   }
 
-  // Fallback: word overlap
-  if (!row) {
-    const inputWords = new Set(inputNorm.split(' '));
-    let best = null, bestScore = -1;
-    for (const q of all) {
-      const qWords = new Set(norm(q.question_text).split(' '));
-      const common = [...inputWords].filter(w => qWords.has(w)).length;
-      if (common > bestScore) {
-        bestScore = common;
-        best = q;
-      }
-    }
-    row = best;
-  }
-
+  // No fallback: if not found, return null
   if (!row) return null;
   return {
     question_id: row.question_id,
