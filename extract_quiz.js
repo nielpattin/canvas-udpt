@@ -1,0 +1,113 @@
+const fs = require("fs");
+const cheerio = require("cheerio");
+const Database = require("better-sqlite3");
+const csv = require("fast-csv");
+
+// Load HTML content (replace with your HTML file or string)
+const htmlContent = fs.readFileSync("quiz.html", "utf8");
+const $ = cheerio.load(htmlContent);
+
+// Initialize better-sqlite3 database
+const db = new Database("quiz.db", { verbose: console.log });
+
+// Create table for quiz data
+db.exec(`
+  CREATE TABLE IF NOT EXISTS quizzes (
+    question_id TEXT PRIMARY KEY,
+    question_text TEXT,
+    question_type TEXT,
+    points INTEGER,
+    answers JSON
+  )
+`);
+
+// Prepare insert statement
+const insert = db.prepare(`
+  INSERT OR REPLACE INTO quizzes (question_id, question_text, question_type, points, answers)
+  VALUES (?, ?, ?, ?, ?)
+`);
+
+// Array to store quiz data
+const quizData = [];
+
+// Parse quiz questions
+$(".display_question").each((index, element) => {
+  const questionId = $(element).attr("id").replace("question_", "");
+  const questionText = $(element).find(".question_text").text().trim();
+  const questionType = $(element).find(".question_type").text().trim();
+  const points = parseInt(
+    $(element).find(".user_points").text().trim().split(" / ")[1]
+  );
+
+  const answers = [];
+  $(element)
+    .find(".answers .answer")
+    .each((i, answerElement) => {
+      const answerId = $(answerElement).find(".hidden.id").text().trim();
+      const answerText = $(answerElement).find(".answer_text").text().trim();
+      const isCorrect = $(answerElement).hasClass("correct_answer");
+
+      answers.push({
+        answer_id: answerId,
+        answer_text: answerText,
+        is_correct: isCorrect,
+      });
+    });
+
+  const quizItem = {
+    question_id: questionId,
+    question_text: questionText,
+    question_type: questionType,
+    points: points,
+    answers: answers,
+  };
+
+  quizData.push(quizItem);
+
+  // Insert into SQLite
+  insert.run(
+    questionId,
+    questionText,
+    questionType,
+    points,
+    JSON.stringify(answers)
+  );
+});
+
+// Export to JSON
+fs.writeFileSync("quiz_data.json", JSON.stringify(quizData, null, 2), "utf8");
+console.log("Exported to quiz_data.json");
+
+// Export to CSV using fast-csv
+const csvStream = csv.format({
+  headers: [
+    "Question ID",
+    "Question Text",
+    "Question Type",
+    "Points",
+    "Answers",
+  ],
+});
+const writableStream = fs.createWriteStream("quiz_data.csv");
+
+csvStream
+  .pipe(writableStream)
+  .on("end", () => console.log("Exported to quiz_data.csv"))
+  .on("error", (err) => console.error("Error writing CSV:", err));
+
+// Transform data for CSV (flatten answers)
+quizData.forEach((item) => {
+  csvStream.write({
+    "Question ID": item.question_id,
+    "Question Text": item.question_text,
+    "Question Type": item.question_type,
+    Points: item.points,
+    Answers: JSON.stringify(item.answers),
+  });
+});
+
+csvStream.end();
+
+// Close the database
+db.close();
+console.log("Closed the database connection.");
