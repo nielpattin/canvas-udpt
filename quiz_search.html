@@ -49,9 +49,6 @@
       outline: none;
       box-sizing: border-box;
     }
-    #result {
-      /* No initial styles needed here, as it's empty */
-    }
     .container.has-result-layout #result {
       flex: 1; /* Take remaining space when in row layout */
       min-width: 0;
@@ -68,9 +65,10 @@
       align-items: flex-start;
     }
     .question {
-      font-weight: bold;
-      font-size: 1.15rem;
+      font-weight: normal;
+      font-size: 1rem;
       margin-bottom: 18px;
+      word-break: break-word;
     }
     .answer-row {
       display: flex;
@@ -380,6 +378,10 @@
       // Prevent race condition
       if (lastQuery === val) renderResult(quiz);
     }, 400));
+  // Autofocus search input on page load
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('searchInput').focus();
+  });
   </script>
 </body>
 </html>

@@ -1,11 +1,11 @@
-const fs = require("fs");
-const cheerio = require("cheerio");
-const Database = require("better-sqlite3");
-const csv = require("fast-csv");
+import { readFileSync, writeFileSync, createWriteStream } from "fs";
+import { load } from "cheerio";
+import Database from "better-sqlite3";
+import { format } from "fast-csv";
 
 // Load HTML content (replace with your HTML file or string)
-const htmlContent = fs.readFileSync("data/quiz.html", "utf8");
-const $ = cheerio.load(htmlContent);
+const htmlContent = readFileSync("data/quiz.html", "utf8");
+const $ = load(htmlContent);
 
 // Initialize better-sqlite3 database
 const db = new Database("data/quiz.db", { verbose: console.log });
@@ -40,7 +40,12 @@ $(".display_question").each((index, element) => {
     .find(".answers .answer")
     .each((i, answerElement) => {
       const answerId = $(answerElement).find(".hidden.id").text().trim();
-      const answerText = $(answerElement).find(".answer_text").text().trim();
+      // Remove MathJax asciimath script and only keep visible text
+      const answerDiv = $(answerElement).find(".answer_text");
+      let answerClone = answerDiv.clone();
+      answerClone.find('script[type="math/asciimath"]').remove();
+      let answerText = answerClone.text().trim();
+
       const isCorrect = $(answerElement).hasClass("correct_answer");
 
       answers.push({
@@ -64,14 +69,14 @@ $(".display_question").each((index, element) => {
 });
 
 // Export to JSON
-fs.writeFileSync("data/quiz_data.json", JSON.stringify(quizData, null, 2), "utf8");
+writeFileSync("data/quiz_data.json", JSON.stringify(quizData, null, 2), "utf8");
 console.log("Exported to quiz_data.json");
 
 // Export to CSV using fast-csv
-const csvStream = csv.format({
+const csvStream = format({
   headers: ["Question ID", "Question Text", "Question Type", "Answers"],
 });
-const writableStream = fs.createWriteStream("data/quiz_data.csv");
+const writableStream = createWriteStream("data/quiz_data.csv");
 
 csvStream
   .pipe(writableStream)
