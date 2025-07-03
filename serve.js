@@ -30,19 +30,34 @@ function getClosestQuiz(query) {
   if (!query || !query.trim()) return null;
   const norm = s => s.toLowerCase().replace(/\s+/g, ' ').trim();
   const inputNorm = norm(query);
-  // Only match if input matches the first word of question_text
+
+  // Try exact match (normalized)
   const all = db.prepare("SELECT * FROM quizzes").all();
-  let row = all.find(q => {
-    const firstWord = norm(q.question_text).split(' ')[0];
-    return firstWord.startsWith(inputNorm);
-  });
+  let row = all.find(q => norm(q.question_text) === inputNorm);
+
+  // Try LIKE match (case-insensitive, anywhere in string)
   if (!row) {
-    // fallback: LIKE search for demo, returns the first match
     const stmt = db.prepare(
-      "SELECT * FROM quizzes WHERE question_text LIKE ? ORDER BY LENGTH(question_text) LIMIT 1"
+      "SELECT * FROM quizzes WHERE LOWER(question_text) LIKE ? ORDER BY LENGTH(question_text) LIMIT 1"
     );
-    row = stmt.get(`${inputNorm}%`);
+    row = stmt.get(`%${inputNorm}%`);
   }
+
+  // Fallback: word overlap
+  if (!row) {
+    const inputWords = new Set(inputNorm.split(' '));
+    let best = null, bestScore = -1;
+    for (const q of all) {
+      const qWords = new Set(norm(q.question_text).split(' '));
+      const common = [...inputWords].filter(w => qWords.has(w)).length;
+      if (common > bestScore) {
+        bestScore = common;
+        best = q;
+      }
+    }
+    row = best;
+  }
+
   if (!row) return null;
   return {
     question_id: row.question_id,
