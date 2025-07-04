@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Quiz Search</title>
   <style>
+    html, body {
+    }
     body {
       min-height: 100vh;
       display: flex;
@@ -23,10 +25,10 @@
       align-items: center;
     }
     .container.has-result-layout {
-      flex-direction: row; /* When result is present, become a row */
-      align-items: center; /* Align items to the center vertically */
-      justify-content: flex-start; /* Align to start */
-      gap: 32px; /* Space between search bar and card */
+      flex-direction: column; /* When result is present, stack vertically */
+      align-items: center; /* Center items horizontally */
+      justify-content: center; /* Center items vertically */
+      /* gap: 32px; Removed as it's not needed for column layout in this context */
     }
     .search-bar {
       width: 100%; /* Take full width of container's content area */
@@ -171,6 +173,10 @@
 </head>
 <body>
   <div class="container" id="mainContainer">
+    <div style="margin: 16px 0; display: flex; align-items: center; gap: 8px;">
+      <label for="question-id-search" style="font-weight: bold;">Search by Question ID:</label>
+      <input id="question-id-search" type="text" placeholder="Enter Question ID here" style="padding: 4px 8px; font-size: 1em; width: 180px;">
+    </div>
     <div class="search-bar">
       <input id="searchInput" type="text" placeholder="Paste your question here..." autocomplete="off" />
     </div>
@@ -383,16 +389,38 @@
     document.getElementById('searchInput').focus();
   });
 // Autofill search input on any paste event
-document.addEventListener('paste', function (e) {
-  const pasted = (e.clipboardData || window.clipboardData).getData('text');
-  const searchInput = document.getElementById('searchInput');
-  if (searchInput && pasted) {
-    searchInput.value = pasted;
-    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-    searchInput.focus();
-    e.preventDefault();
-  }
-});
+    // Auto-fetch on paste in Question ID input
+    document.getElementById('question-id-search').addEventListener('paste', async function(e) {
+      setTimeout(async () => {
+        const id = e.target.value.trim();
+        if (!id) return;
+        const res = await fetch('/api/search_by_id?id=' + encodeURIComponent(id));
+        if (!res.ok) return alert('Error fetching question from backend.');
+        const data = await res.json();
+        if (!data || !data.question_id) return alert('Question ID not found.');
+        renderResult(data);
+      }, 0);
+    });
+    document.querySelectorAll('.question_holder').forEach(holder => {
+      const aTag = holder.querySelector('a[name^="question_"]');
+      if (!aTag) return;
+      const questionId = aTag.name.replace('question_', '');
+      const header = holder.querySelector('.header .question_name');
+      if (!header) return;
+      const idBtn = document.createElement('button');
+      idBtn.type = 'button'; // Add this line to prevent form submission
+      idBtn.textContent = `ID: ${questionId}`;
+      idBtn.style.marginLeft = '10px';
+      idBtn.style.fontSize = '0.9em';
+      idBtn.style.cursor = 'pointer';
+      idBtn.title = 'Click to copy Question ID';
+      idBtn.onclick = () => {
+        navigator.clipboard.writeText(questionId);
+        idBtn.textContent = `Copied: ${questionId}`;
+        setTimeout(() => (idBtn.textContent = `ID: ${questionId}`), 1200);
+      };
+      header.appendChild(idBtn);
+    });
   </script>
 </body>
 </html>

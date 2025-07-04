@@ -6,7 +6,7 @@ import multer from 'multer';
 
 const PORT = 8080;
 const app = express();
-const db = new Database('data/quiz.db');
+const db = new Database('db/quiz.db');
 
 // Multer setup for image uploads
 const imagesDir = join(process.cwd(), 'images');
@@ -28,19 +28,26 @@ const upload = multer({
 // Helper: get closest quiz
 function getClosestQuiz(query) {
   if (!query || !query.trim()) return null;
+  // Normalize: collapse whitespace, trim, lowercase
   const norm = s => s.toLowerCase().replace(/\s+/g, ' ').trim();
+
   const inputNorm = norm(query);
 
   // Try exact match (normalized)
   const all = db.prepare("SELECT * FROM quizzes").all();
   let row = all.find(q => norm(q.question_text) === inputNorm);
 
+  // Try prefix match (normalized, whitespace-insensitive)
+  if (!row) {
+    row = all.find(q => norm(q.question_text).startsWith(inputNorm));
+  }
+
   // Try LIKE match (case-insensitive, anywhere in string)
   if (!row) {
     const stmt = db.prepare(
       "SELECT * FROM quizzes WHERE LOWER(question_text) LIKE ? ORDER BY LENGTH(question_text) LIMIT 1"
     );
-    row = stmt.get(`%${inputNorm}%`);
+    row = stmt.get(`${inputNorm}%`);
   }
 
   // No fallback: if not found, return null
@@ -58,6 +65,35 @@ app.get('/api/search', (req, res) => {
   const q = req.query.q || '';
   const quiz = getClosestQuiz(q);
   res.json(quiz || {});
+});
+
+
+// API: get quiz by question_id
+app.get('/api/question', (req, res) => {
+  const id = req.query.id;
+  if (!id) return res.status(400).json({});
+  const row = db.prepare("SELECT * FROM quizzes WHERE question_id = ?").get(id);
+  if (!row) return res.json({});
+  res.json({
+    question_id: row.question_id,
+    question_text: row.question_text,
+    question_type: row.question_type,
+    answers: JSON.parse(row.answers)
+  });
+});
+
+// API: get quiz by id (alias for /api/question)
+app.get('/api/search_by_id', (req, res) => {
+  const id = req.query.id;
+  if (!id) return res.status(400).json({});
+  const row = db.prepare("SELECT * FROM quizzes WHERE question_id = ?").get(id);
+  if (!row) return res.json({});
+  res.json({
+    question_id: row.question_id,
+    question_text: row.question_text,
+    question_type: row.question_type,
+    answers: JSON.parse(row.answers)
+  });
 });
 
 // API: get image extension for question
