@@ -6,7 +6,9 @@ import multer from 'multer';
 
 const PORT = 8080;
 const app = express();
-const db = new Database('db/quiz.db');
+const dbDir = join(process.cwd(), 'db');
+if (!existsSync(dbDir)) mkdirSync(dbDir, { recursive: true });
+const db = new Database(join(dbDir, 'quiz.db'));
 
 // Multer setup for image uploads
 const imagesDir = join(process.cwd(), 'images');
