@@ -1,7 +1,8 @@
 {
   "name": "canvas-udpt",
   "scripts": {
-    "dev": "nodemon serve.js"
+    "dev": "nodemon serve.js",
+    "start": "node index.js"
   },
   "version": "1.0.0",
   "description": "",
