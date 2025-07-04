@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Interface</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #f7f7f7;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .quiz-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      width: 540px;
+      max-width: 98vw;
+      padding: 32px 24px 24px 24px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .arrow-btn.outside-arrow {
+      font-size: 2.2rem;
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.2s;
+      padding: 0 16px;
+      user-select: none;
+      height: 48px;
+      align-self: center;
+    }
+    .arrow-btn.outside-arrow:disabled {
+      color: #ddd;
+      cursor: default;
+    }
+    .question-row {
+      margin-top: 32px;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #222;
+      min-height: 48px;
+    }
+    .answers-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .answer {
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 2px solid #eee;
+      background: #fafafa;
+      font-size: 1rem;
+      cursor: default;
+      transition: border 0.2s, background 0.2s;
+      position: relative;
+    }
+    .answer.correct {
+      border-color: #2ecc40 !important;
+      background: #eafbe7 !important;
+    }
+    /* Remove red highlight for selected answers */
+    .answer.selected:not(.correct) {
+      border-color: #eee;
+      background: #fafafa;
+    }
+    .images-row {
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+    .quiz-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+      cursor: pointer;
+      transition: border 0.2s;
+    }
+    .quiz-image:hover {
+      border-color: #888;
+    }
+    /* Modal styles */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+    }
+    .modal-bg.active {
+      display: flex;
+    }
+    .modal-img {
+      max-width: 96vw;
+      max-height: 96vh;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      background: #222;
+    }
+    .modal-close {
+      position: absolute;
+      top: 32px;
+      right: 48px;
+      font-size: 2.5rem;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    @media (max-width: 600px) {
+      .quiz-card {
+        padding: 16px 4vw 16px 4vw;
+      }
+      .modal-close {
+        right: 16px;
+        top: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div style="position: relative; display: flex; align-items: center; justify-content: center;">
+    <button class="arrow-btn outside-arrow" id="prevBtn" aria-label="Previous">&#8592;</button>
+    <div class="quiz-card" id="quizCard">
+      <span id="questionIndex"></span>
+      <div class="question-row" id="questionText"></div>
+      <div class="answers-row" id="answersList"></div>
+      <div class="images-row" id="imagesRow"></div>
+    </div>
+    <button class="arrow-btn outside-arrow" id="nextBtn" aria-label="Next">&#8594;</button>
+  </div>
+  <div class="modal-bg" id="modalBg">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
+    <img class="modal-img" id="modalImg" src="" alt="Quiz Image">
+  </div>
+  <script>
+    // Fetch quiz data from JSON file
+    let quizData = [];
+    let current = 0;
+    let selectedAnswers = {};
+    let availableImages = [];
+
+    async function loadImageList() {
+      try {
+        const res = await fetch('./images/image_list.json');
+        availableImages = await res.json();
+      } catch (e) {
+        availableImages = [];
+      }
+    }
+
+    async function loadQuizData() {
+      try {
+        await loadImageList();
+        const res = await fetch('./db/quiz_data.json');
+        quizData = await res.json();
+        if (!Array.isArray(quizData)) quizData = [quizData];
+        renderQuestion();
+      } catch (e) {
+        document.getElementById('questionText').textContent = 'Failed to load quiz data.';
+      }
+    }
+
+    function renderQuestion() {
+      if (!quizData.length) return;
+      const q = quizData[current];
+      document.getElementById('questionIndex').textContent = `Question ${current + 1} / ${quizData.length}`;
+      document.getElementById('questionText').textContent = q.question_text || q.question || '';
+      // Render answers
+      const answersList = document.getElementById('answersList');
+      answersList.innerHTML = '';
+      (q.answers || []).forEach((ans, idx) => {
+        const div = document.createElement('div');
+        div.className = 'answer';
+        div.textContent = ans.answer_text || ans;
+        // Always highlight correct answers, no selection or click
+        // Support both correct_answers (array of indices) and is_correct (boolean in answer object)
+        if (
+          (q.correct_answers && q.correct_answers.includes(idx)) ||
+          (ans.is_correct === true)
+        ) {
+          div.classList.add('correct');
+        }
+        // Remove all click/select logic for static display
+        answersList.appendChild(div);
+      });
+      // Render images
+      const imagesRow = document.getElementById('imagesRow');
+      imagesRow.innerHTML = '';
+      // Check if an image exists for this question ID
+      const questionId = q.id || q.question_id || q.questionId || q.qid || q.id_question || "";
+      if (questionId) {
+        // Find all images that start with this questionId (e.g., 796602.png)
+        const matchedImages = availableImages.filter(imgName => imgName.startsWith(String(questionId)));
+        matchedImages.forEach(imgName => {
+          const img = document.createElement('img');
+          img.className = 'quiz-image';
+          img.src = './images/' + imgName;
+          img.alt = 'Quiz Image';
+          img.onclick = () => openModal(img.src);
+          imagesRow.appendChild(img);
+        });
+      }
+      // Also support legacy q.images array if present
+      if (q.images && q.images.length) {
+        q.images.forEach(imgName => {
+          if (!availableImages.includes(imgName)) return;
+          const img = document.createElement('img');
+          img.className = 'quiz-image';
+          img.src = './images/' + imgName;
+          img.alt = 'Quiz Image';
+          img.onclick = () => openModal(img.src);
+          imagesRow.appendChild(img);
+        });
+      }
+      // Update nav buttons
+      document.getElementById('prevBtn').disabled = current === 0;
+      document.getElementById('nextBtn').disabled = current === quizData.length - 1;
+    }
+
+    document.getElementById('prevBtn').onclick = () => {
+      if (current > 0) {
+        current--;
+        renderQuestion();
+      }
+    };
+    document.getElementById('nextBtn').onclick = () => {
+      if (current < quizData.length - 1) {
+        current++;
+        renderQuestion();
+      }
+    };
+
+    // Modal logic
+    function openModal(src) {
+      const modalBg = document.getElementById('modalBg');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = src;
+      modalBg.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modalBg').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('modalBg').onclick = (e) => {
+      if (e.target === e.currentTarget) closeModal();
+    };
+    document.getElementById('modalCloseBtn').onclick = closeModal;
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('modalBg').classList.contains('active') && (e.key === 'Escape' || e.key === ' ')) {
+        closeModal();
+      }
+    });
+
+    // Fullscreen on modal image click
+    document.getElementById('modalImg').onclick = () => {
+      const img = document.getElementById('modalImg');
+      if (img.requestFullscreen) img.requestFullscreen();
+      else if (img.webkitRequestFullscreen) img.webkitRequestFullscreen();
+      else if (img.msRequestFullscreen) img.msRequestFullscreen();
+    };
+
+    loadQuizData();
+  </script>
+</body>
+</html>

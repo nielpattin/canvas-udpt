@@ -6,6 +6,7 @@ import { readdirSync } from "fs";
 
 const quizFiles = readdirSync("db/quizzes").filter(f => f.endsWith(".html"));
 const quizData = [];
+const seenQuestionIds = new Set();
 
 const db = new Database("db/quiz.db", { verbose: console.log });
 
@@ -58,9 +59,12 @@ for (const file of quizFiles) {
       question_type: questionType,
       answers: answers,
     };
-  
-    quizData.push(quizItem);
-  
+
+    if (!seenQuestionIds.has(questionId)) {
+      quizData.push(quizItem);
+      seenQuestionIds.add(questionId);
+    }
+
     insert.run(questionId, questionText, questionType, JSON.stringify(answers));
   });
 }
