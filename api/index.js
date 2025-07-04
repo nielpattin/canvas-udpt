@@ -144,7 +144,7 @@ app.use('/images', express.static(imagesDir, {
 app.use(express.static(process.cwd(), { extensions: ['html'] }));
 
 // Serve quiz_interface.html at /quizzes
-app.get('/quizzes', (req, res) => {
+app.get('/', (req, res) => {
  res.sendFile(join(process.cwd(), 'quiz_interface.html'));
 });
 
