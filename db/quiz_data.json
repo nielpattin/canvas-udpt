@@ -2560,6 +2560,114 @@
     {
       "answer_id": "0-3",
       "answer_text": "Eventual consistency cho phép một thời gian không đồng nhất giữa các bản sao dữ liệu trong hệ thống, nhưng đảm bảo rằng cuối cùng, tất cả các bản sao sẽ hội tụ và trở thành nhất quán.",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba4c4086ad0d",
+  "question_text": "Entry consistency trong hệ thống phân tán đề cập đến điều gì?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Kiểm soát các lỗi trong hệ thống phân tán.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Đảm bảo mỗi quy trình nhận được dữ liệu theo một thứ tự cố định.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Đảm bảo rằng mọi sự thay đổi dữ liệu xuất phát từ một địa chỉ cụ thể sẽ được nhìn thấy theo thứ tự cố định.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Chặn việc truyền dữ liệu từ máy chủ đến máy khách.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aebaa4e486ace9",
+  "question_text": "Trong mô hình hệ thống mạng xã hội, tất cả dữ liệu người dùng đều được lưu trữ và quản lý tập trung tại một trung tâm dữ liệu. Hệ thống mạng xã hội này được phân loại là:",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Hệ thống phân tán hoặc phi tập trung",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Hệ thống phân tán",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Hệ thống phi tập trung",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Hệ thống tập trung",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba29e686acf4",
+  "question_text": "Chính sách gọi trong hàm app cho dbList là gì?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Gọi bằng tham chiếu",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Gọi bằng giá trị",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Gọi bằng tham chiếu tham số",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Gọi bằng giá trị tham số",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba3f5c86acf7",
+  "question_text": "Trong quá trình chuyển đổi CPU giữa hai quá trình, điều gì cần được lưu trữ?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Địa chỉ của tất cả các tệp tin được mở bởi quá trình.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Các giá trị đăng ký, bộ đếm chương trình và con trỏ ngăn xếp.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Danh sách các tiến trình đang chạy cùng lúc trên hệ thống.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Dữ liệu của tất cả các biến toàn cục.",
       "is_correct": false
     }
   ]
