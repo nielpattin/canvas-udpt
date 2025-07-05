@@ -1969,5 +1969,599 @@
       "is_correct": false
     }
   ]
+},
+{
+  "question_id": "6718d185d7aeba451e86acf8",
+  "question_text": "Trong lập trình song song và phân tán, hoạt động nào thường được sử dụng để ánh xạ dữ liệu vào các cặp giá trị khóa-giá trị?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Shuffle",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Reduce",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Map-Reduce",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Map",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba071786ad09",
+  "question_text": "Tại sao Đồng hồ Vật lý có thể dễ bị lệch theo thời gian?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Vì nó ánh xạ số (dấu thời gian) cho các sự kiện trong hệ thống phân tán.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Bởi vì các yếu tố như động cơ hoặc nhiệt độ có thể ảnh hưởng đến độ chính xác của nó.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Do nó là một cơ chế trừu tượng.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Vì nó chỉ có thể áp dụng các thuật toán đồng bộ hóa đồng hồ Logic.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba6e8d86acee",
+  "question_text": "Trong kiến trúc máy chủ máy khách, phân đoạn (segmentation) được thực hiện ở mức độ nào?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Mức mạng (Network layer)",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Mức ứng dụng (Application layer)",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Mức trình bày (Presentation layer)",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Mức vật lý (Physical layer)",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba46b686acfd",
+  "question_text": "Định danh (Authentication) chủ yếu liên quan đến:",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Truy cập thông tin không được phép.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Xác minh danh tính.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Mã hóa dữ liệu",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Xác định cá nhân.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba594c86ad02",
+  "question_text": "Proof-of-Work (PoW) trong blockchain làm gì chính?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Tạo ra một chuỗi liên kết các khối giao dịch.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Giải một bài toán hash phức tạp để tạo khối mới.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Tạo ra một hệ thống phân quyền trong mạng blockchain.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Xác minh danh tính của người dùng truy cập.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aebab3f586ad0c",
+  "question_text": "Causal consistency trong hệ thống phân tán đề cập đến điều gì?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Kiểm soát các lỗi trong hệ thống phân tán.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Đảm bảo tính nhất quán giữa các ghi nhận sự kiện theo thứ tự nguyên nhân và kết quả của chúng.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Đảm bảo mỗi quy trình nhận được dữ liệu theo một thứ tự cố định.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Chặn việc truyền dữ liệu từ máy chủ đến máy khách.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba042486acf9",
+  "question_text": "Một ứng dụng máy chủ đa luồng thường sử dụng cơ chế nào để xử lý đồng thời nhiều yêu cầu từ khách hàng?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Sử dụng nhiều máy chủ độc lập để phục vụ từng yêu cầu.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Sử dụng một luồng đơn lẻ để xử lý tất cả các yêu cầu.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Tạo và quản lý nhiều luồng đồng thời để xử lý từng yêu cầu riêng biệt.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Sử dụng một hàng đợi để lưu trữ tất cả các yêu cầu trước khi xử lý chúng.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba042486acf9",
+  "question_text": "Một ứng dụng máy chủ đa luồng thường sử dụng cơ chế nào để xử lý đồng thời nhiều yêu cầu từ khách hàng?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Sử dụng nhiều máy chủ độc lập để phục vụ từng yêu cầu.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Sử dụng một luồng đơn lẻ để xử lý tất cả các yêu cầu.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Tạo và quản lý nhiều luồng đồng thời để xử lý từng yêu cầu riêng biệt.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Sử dụng một hàng đợi để lưu trữ tất cả các yêu cầu trước khi xử lý chúng.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba6a0986acff",
+  "question_text": "Tại sao xác thực liên tục được coi là cần thiết trong một số trường hợp?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Để ngăn chặn những kẻ xâm nhập không mong muốn.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Để đảm bảo người dùng không bị buộc phải chia sẻ thông tin đăng nhập.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Để giữ cho người dùng được xác thực suốt quá trình phiên làm việc.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Để tăng cường bảo mật khi yêu cầu truy cập.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aebad71986acfa",
+  "question_text": "Luồng và quá trình được miêu tả như thế nào?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Luồng và quá trình cho phép thực thi vật lý của nhiều chương trình đồng thời.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Luồng và quá trình là các kỹ thuật ảo hóa được sử dụng để mở rộng khả năng của tài nguyên phần cứng.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Luồng và quá trình luôn thực thi đồng thời, bất kể số lượng CPU có sẵn.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Luồng và quá trình được ảo hoá để thực thi đồng thời bằng cách chuyển đổi giữa các nhiệm vụ một cách nhanh chóng.",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba569786ad03",
+  "question_text": "Trong Proof-of-Stake (PoS), việc chọn validator mới để tạo khối được thực hiện dựa trên những tiêu chí nào?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Tốc độ mạng Internet của họ.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Số lượng tiền điện tử mà họ đang cọc và thời gian mà chúng đã cọc.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Số lần họ đã tham gia vào quá trình tạo khối trước đó.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Số lượng giao dịch mà họ đã xác minh trong quá khứ.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba4ee086acf5",
+  "question_text": "Trong cơ chế gọi theo sao chép/phục hồi, biến được sao chép vào đâu?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "RAM",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Bộ nhớ đệm",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "CPU",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Ngăn xếp của người gọi",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba69eb86aced",
+  "question_text": "Trong mô hình OSI, các lớp nào thường liên quan đến truyền thông trong hệ thống phân tán?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Lớp Ứng dụng (Application Layer) và Lớp Phiên (Session Layer)",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Lớp Liên kết dữ liệu (Data Link Layer) và Lớp Vật lý (Physical Layer)",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Lớp Điều khiển truy cập phương tiện truyền thông (Media Access Control Layer) và Lớp Giao diện mạng (Network Interface Layer)",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Lớp Vận chuyển (Transport Layer) và Lớp Mạng (Network Layer)",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba9fca86ad07",
+  "question_text": "Nếu tốc độ lệch tối đa của đồng hồ là 1 trong 10^6, khoảng thời gian đồng bộ lại cần là bao nhiêu để đảm bảo sai biến dạng không vượt quá 20 ms?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "20 giờ",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "162 giờ",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "2,000 giờ",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "2 giờ",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba596786aceb",
+  "question_text": "Mạng Ngang Hàng (Peer-to-Peer): Trong mạng P2P, mỗi người tham gia đóng vai trò cả khách hàng và máy chủ. Hệ thống này là:",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Hệ thống phi tập trung",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Hệ thống tập trung",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Hệ thống phân tán",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Hệ thống phân tán hoặc phi tập trung",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba8afc86acea",
+  "question_text": "Hệ Thống Kiểm Soát Giao Thông Hàng Không Tập Trung quản lý tất cả thông tin và giao tiếp từ một trung tâm. Hệ thống này là:",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Hệ thống phi tập trung",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Hệ thống phân tán hoặc phi tập trung",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Hệ thống phân tán",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Hệ thống tập trung",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba68a486acf6",
+  "question_text": "Trong ứng dụng phân tán, thread thường được hiểu là gì?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Một luồng dữ liệu được truyền giữa các nút trong mạng.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Một phần của một tiến trình chính, giúp thực hiện các tác vụ đồng thời trong một ứng dụng phân tán.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Một tiến trình riêng biệt chạy đồng thời với các tiến trình khác trên cùng một máy tính.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Một phần tử trực tuyến trong cơ sở dữ liệu phân tán.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aebaf4d386ad05",
+  "question_text": "Trong việc đồng bộ hóa đồng hồ, điều gì xảy ra nếu các đồng hồ không được đồng bộ?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Tất cả các quy trình trong hệ thống sẽ bị treo.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Các sự kiện trong hệ thống sẽ xảy ra không đồng bộ.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Hệ thống sẽ tự động đồng bộ hóa đồng hồ.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Các quy trình trong hệ thống sẽ hoạt động chậm hơn.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba0c6d86acec",
+  "question_text": "Một hệ thống phân tán thường đáp ứng các tiêu chí nào? (chọn 3)",
+  "question_type": "multiple_answers_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Có địa chỉ IP thay đổi liên tục",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Không gian địa chỉ rời rạc",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Giao tiếp giữa các quy trình",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Nhiều quy trình",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba41e986ad08",
+  "question_text": "(1) ... là các thiết bị phần cứng thực tế mà đo lường sự trôi qua của thời gian. (2) ... một phương pháp được sử dụng trong các hệ thống phân tán để sắp xếp thứ tự các sự kiện trong một hệ thống không có đồng hồ vật lý toàn cầu. Đáp án chính xác nhất là:",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "(1) Đồng hồ Logic và (2) Đồng hồ Lamport.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "(1) Đồng hồ Logic và (2) Đồng hồ vật lý.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "(1) Đồng hồ vật lý và (2) Đồng hồ Logic.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "(1) Đồng hồ Lamport và (2) Đồng hồ Logic.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba48a386ad0b",
+  "question_text": "Một consistency model phổ biến trong hệ thống phân tán là:",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Sao chép và phân phối dữ liệu giữa các máy chủ để đảm bảo tính nhất quán và độ tin cậy.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Weak consistency",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Basic consistency",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Average consistency",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d185d7aeba7d0486ad0e",
+  "question_text": "Eventual consistency đề cập đến khái niệm gì trong hệ thống phân tán?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Eventual consistency là một mô hình đảm bảo rằng mọi thay đổi dữ liệu sẽ được lan truyền đến tất cả các node trong hệ thống ngay lập tức.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Eventual consistency là quá trình đồng bộ hóa dữ liệu giữa các máy chủ sao chép để đảm bảo rằng mọi thay đổi được áp dụng một cách đồng nhất trên toàn hệ thống.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Eventual consistency yêu cầu mọi giao dịch được thực hiện tuân theo một thứ tự nhất định để đảm bảo tính nhất quán của dữ liệu.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Eventual consistency cho phép một thời gian không đồng nhất giữa các bản sao dữ liệu trong hệ thống, nhưng đảm bảo rằng cuối cùng, tất cả các bản sao sẽ hội tụ và trở thành nhất quán.",
+      "is_correct": false
+    }
+  ]
 }
 ]
