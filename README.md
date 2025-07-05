@@ -34,3 +34,46 @@ document.querySelectorAll('.question_holder').forEach(holder => {
   header.appendChild(idBtn);
 });
 ```
+
+
+### Wayground scrapper script
+
+```javascript
+(() => {
+  // Select all quiz containers on the page
+  const quizContainers = document.querySelectorAll('[data-testid="quiz-container"]');
+
+  quizContainers.forEach((container, index) => {
+    const questionId = container.getAttribute("data-quesid") || `question_${index}`;
+    const questionTextElem = container.querySelector("#questionText");
+    const questionText = questionTextElem ? questionTextElem.innerText.trim() : "Unknown Question";
+
+    // First log: just question text
+    console.log(questionText);
+
+    const answerButtons = container.querySelectorAll("button.option");
+    const answers = Array.from(answerButtons).map((btn, i) => {
+      const textElem = btn.querySelector("#optionText .resizeable");
+      const text = textElem ? textElem.innerText.trim() : `Answer ${i + 1}`;
+      return {
+        answer_id: `${index}-${i}`, // mock id
+        answer_text: text,
+        is_correct: false
+      };
+    });
+
+    const type = container.querySelector(".is-msq") ? "multiple_answers_question" : "single_answer_question";
+
+    const output = {
+      question_id: questionId,
+      question_text: questionText,
+      question_type: type,
+      answers: answers
+    };
+
+    // Second log: full JSON object
+    console.log(JSON.stringify(output, null, 2));
+  });
+})();
+
+```

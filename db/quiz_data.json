@@ -163,12 +163,12 @@
   },
   {
     "question_id": "796596",
-    "question_text": "Trong lĩnh vực Y tế Điện tử: Tất cả thông tin về bệnh nhân, bao gồm bệnh án, kết quả xét nghiệm và toàn bộ hồ sơ y tế, được lưu trữ và quản lý tập trung trong một hệ thống thông tin y tế lớn. Hệ thống thông tin ý tế này được xây dựng trên nhiều cụm máy. Hệ thống này có tính chất là:",
+    "question_text": "Trong lĩnh vực Y tế Điện tử: Tất cả thông tin về bệnh nhân, bao gồm bệnh án, kết quả xét nghiệm và toàn bộ hồ sơ y tế, được lưu trữ và quản lý tập trung trong một hệ thống thông tin y tế lớn. Hệ thống thông tin y tế này được xây dựng trên nhiều cụm máy. Hệ thống này có tính chất là:",
     "question_type": "multiple_choice_question",
     "answers": [
       {
         "answer_id": "88",
-        "answer_text": "Hệ thống phi tập trung",
+        "answer_text": "Hệ thống tập trung",
         "is_correct": true
       },
       {
@@ -1065,12 +1065,12 @@
       {
         "answer_id": "1899",
         "answer_text": "Thời điểm gửi tin nhắn từ một máy tính đến máy tính khác.",
-        "is_correct": false
+        "is_correct": true
       },
       {
         "answer_id": "9819",
         "answer_text": "Độ chính xác của đồng hồ trên một máy tính cụ thể trong hệ thống.",
-        "is_correct": true
+        "is_correct": false
       },
       {
         "answer_id": "1510",
@@ -1335,7 +1335,7 @@
       {
         "answer_id": "7832",
         "answer_text": "Quản lý tương tác giữa các hoạt động trong hệ thống phân tán.",
-        "is_correct": false
+        "is_correct": true
       },
       {
         "answer_id": "7440",
@@ -1510,5 +1510,464 @@
         "is_correct": true
       }
     ]
-  }
+  },
+  {
+    "question_id": "6718d10c07ed892062f377d7",
+    "question_text": "DNS được sử dụng để làm gì trong mạng máy tính?",
+    "question_type": "single_answer_question",
+    "answers": [
+      {
+        "answer_id": "11",
+        "answer_text": "Tra cứu địa chỉ mạng liên kết với một tên miền.",
+        "is_correct": true
+      },
+      {
+        "answer_id": "12",
+        "answer_text": "Chuyển tiếp dữ liệu giữa các máy tính trong mạng.",
+        "is_correct": false
+      },
+      {
+        "answer_id": "13",
+        "answer_text": "Quản lý kết nối mạng giữa các máy tính.",
+        "is_correct": false
+      },
+      {
+        "answer_id": "14",
+        "answer_text": "Kiểm soát lưu lượng dữ liệu trên mạng.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "6718d10c07ed89106df377d9",
+    "question_text": "Các dịch vụ truyền thông cấp cao được sử dụng cho mục đích gì?",
+    "question_type": "single_answer_question",
+    "answers": [
+      {
+        "answer_id": "11",
+        "answer_text": "Thiết lập và đồng bộ hóa luồng dữ liệu cho việc truyền dữ liệu thời gian thực.",
+        "is_correct": true
+      },
+      {
+        "answer_id": "12",
+        "answer_text": "Quản lý các truy cập vào tài nguyên mạng.",
+        "is_correct": false
+      },
+      {
+        "answer_id": "13",
+        "answer_text": "Định dạng dữ liệu đa phương tiện.",
+        "is_correct": false
+      },
+      {
+        "answer_id": "14",
+        "answer_text": "Chuyển tiếp dữ liệu giữa các máy tính trong mạng LAN.",
+        "is_correct": false
+      }
+    ]
+  },
+    {
+    "question_id": "6718d10c07ed89b83ff377d4",
+    "question_text": "Trong hệ thống phân tán, vai trò của máy chủ và máy khách là gì?",
+    "question_type": "single_answer_question",
+    "answers": [
+      {
+        "answer_id": "11",
+        "answer_text": "Máy chủ quản lý mạng, máy khách quản lý dữ liệu.",
+        "is_correct": false
+      },
+      {
+        "answer_id": "12",
+        "answer_text": "Máy chủ lưu trữ dữ liệu, máy khách truy cập dữ liệu.",
+        "is_correct": true
+      },
+      {
+        "answer_id": "13",
+        "answer_text": "Cả máy chủ và máy khách đều có thể lưu trữ và truy cập dữ liệu.",
+        "is_correct": false
+      },
+      {
+        "answer_id": "14",
+        "answer_text": "Máy khách lưu trữ dữ liệu, máy chủ truy cập dữ liệu.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+  "question_id": "6718d10c07ed89fe2af377e2",
+  "question_text": "Multi-threaded clients thường được sử dụng để:",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Tăng hiệu suất bằng cách giảm độ trễ khi truy cập dữ liệu từ máy chủ.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Tạo ra nhiều phiên làm việc đồng thời trên máy tính cá nhân.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Giảm độ phức tạp của ứng dụng bằng cách tăng số lượng luồng.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Loại bỏ cần thiết của máy chủ vật lý bằng cách chia sẻ tài nguyên giữa các máy tính.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed89bb49f377f1",
+  "question_text": "Định nghĩa của tính an toàn (safety) trong hệ thống là gì?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Tính sẵn sàng để sử dụng ngay lập tức",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Khả năng chịu đựng lỗi",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Không có sự kiện tai hại xảy ra khi hệ thống tạm thời gặp sự cố",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Khả năng mở rộng của hệ thống",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed89abb5f377dd",
+  "question_text": "Trong lập trình song song và phân tán, hoạt động nào được sử dụng để tổng hợp và gộp các giá trị giữa các bước hoạt động trước đó?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Map-Reduce",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Shuffle",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Map",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Reduce",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed89681ff377f4",
+  "question_text": "Raft là một thuật toán bảo đảm sự nhất quán trong hệ thống phân tán, được mô tả bởi Diego Ongaro và John Ousterhout vào năm 2014. Mục tiêu chính của Raft là đơn giản hóa việc triển khai và hiểu các hệ thống bất đồng bộ. Thuật toán này được thiết kế để giải quyết các vấn đề phức tạp của quá trình bầu cử lãnh đạo, đồng bộ dữ liệu, và duy trì tính nhất quán trong hệ thống ngay cả khi xảy ra sự cố. Raft chia tổ chức của hệ thống thành ba vai trò chính: lãnh đạo, ứng viên, và người bình phụ Các quá trình bầu cử đảm bảo chỉ có một lãnh đạo duy nhất được chọn, giúp đảm bảo tính nhất quán trong hệ thống. Quá trình đồng bộ dữ liệu của Raft dựa trên việc sao chép nhật ký giữa các nút, đảm bảo rằng mọi thay đổi đều được sao chép đúng đắn. Ta có thể phân loại cụm máy Raft thành một nhóm:",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Phẳng",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Hỗn hợp",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Chính bản - phụ bản",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Phân quyền",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed8963d3f377df",
+  "question_text": "Trong hệ thống phân tán, ảo hóa thường được sử dụng để:",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Loại bỏ cần thiết của máy chủ vật lý.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Tạo ra một máy ảo có các tài nguyên riêng biệt.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Giảm độ phức tạp của hệ thống phân tán.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Tăng sức mạnh xử lý của mỗi nút trong mạng.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed893a2bf377e0",
+  "question_text": "Mục đích chính của ảo hóa trong hệ thống phân tán là gì?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Tăng cường tính bảo mật của dữ liệu trên mạng.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Mở rộng khả năng sử dụng và quản lý tài nguyên máy tính.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Giảm thiểu độ trễ trong truy cập dữ liệu trên mạng.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Tạo ra một môi trường phát triển phần mềm đồng nhất trên tất cả các nút.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed891f8af377eb",
+  "question_text": "Đồng hồ logic Lamport được sử dụng trong ngữ cảnh nào trong lĩnh vực khoa học máy tính?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Theo dõi thời gian truy cập vào cơ sở dữ liệu.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Xác định thời gian thực hiện của các quy trình trong một hệ thống phân tán.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Đồng bộ hóa thời gian giữa các máy chủ và máy khách trong một hệ thống.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Đồng bộ hóa thời gian trên các thiết bị trong một mạng máy tính.",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed89ea07f377d5",
+  "question_text": "Giao thức truyền thông trong hệ thống mạng máy tính đóng vai trò như thế nào?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Giao thức truyền thông là một loại phần mềm để kiểm soát tốc độ truyền dữ liệu.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Giao thức truyền thông quản lý việc kết nối vật lý giữa các máy tính.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Giao thức truyền thông là công nghệ chỉ sử dụng trong các mạng cục bộ.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Giao thức truyền thông là quy tắc được định nghĩa để cho phép truyền thông giữa các máy tính qua mạng.",
+      "is_correct": true
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed89daa2f377e4",
+  "question_text": "One-Time Passwords là ví dụ của hình thức xác thực nào (chọn đáp án chính xác nhất):",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Xác thực điện tử",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Có thể là tất cả các đáp án",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Xác thực đa yếu tố",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Xác thực đơn yếu tố",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed895353f377e6",
+  "question_text": "Một session key là một khóa chia sẻ (bí mật) được sử dụng để mã hóa các tin nhắn để đảm bảo tính toàn vẹn và có thể cũng là tính bí mật. Session key được sử dụng để làm gì trong quá trình giao tiếp bảo mật?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Xác thực người gửi và người nhận",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Mở khóa các tài liệu bí mật",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Mã hóa các tin nhắn để đảm bảo tính toàn vẹn và bảo mật",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Kiểm tra tính hợp lệ của dữ liệu",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed89e1d6f377f3",
+  "question_text": "Replication dựa trên nguyên tắc chính trong trường hợp bảo mật lỗi thường xuất hiện dưới dạng một giao thức chính bản-phụ bản. Trong trường hợp này, một nhóm các tiến trình được tổ chức theo cách phân cấp, trong đó một nguyên tắc điều phối tất cả các hoạt động ghi. Trong thực tế, chính bản là cố định, tuy nhiên vai trò của nó có thể được tiếp quản bởi một trong các sao lưu nếu cần thiết. Khi chính bản gặp sự cố, các sao lưu thực thi một thuật toán bầu cử để chọn ra một chính bản mới. Trong phương pháp sao chép dựa trên, vai trò của chính bản là gì?",
+  "question_type": "single_answer_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Đóng vai trò làm sao lưu cho chính bản.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Điều phối tất cả các hoạt động ghi.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Thực thi thuật toán bầu cử để chọn ra một nguyên tắc mới.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Chịu trách nhiệm bảo quản dữ liệu.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed896e1cf377de",
+  "question_text": "Map-Reduce là một mô hình lập trình phân tán được sử dụng phổ biến trong các hệ thống xử lý dữ liệu lớn. Hoạt động nào sau đây miêu tả bước kết hợp của quá trình Map-Reduce? (chọn 2)",
+  "question_type": "multiple_answers_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Ánh xạ dữ liệu vào các cặp giá trị khóa-giá trị.",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Gộp các giá trị có cùng khóa từ các bước Map trước đó.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Sắp xếp và gộp các cặp giá trị có cùng khóa.",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Chia dữ liệu thành các phần nhỏ và phân phối chúng đến các nút xử lý.",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed89d186f377ee",
+  "question_text": "Tính nhất quán trong hệ thống phân tán đề cập đến việc: (chọn 2)",
+  "question_type": "multiple_answers_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Đảm bảo mỗi máy chủ có thể truy cập đến mạng Internet một cách nhất quán",
+      "is_correct": false
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Đảm bảo dữ liệu luôn được sao chép chính xác trên mỗi máy chủ",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Đảm bảo mọi yêu cầu từ người dùng đều được xử lý một cách nhất quán trên toàn hệ thống",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Đảm bảo mọi máy chủ đều cùng có cấu hình",
+      "is_correct": false
+    }
+  ]
+},
+{
+  "question_id": "6718d10c07ed8911a9f377f5",
+  "question_text": "Paxos là một thuật toán được phát triển bởi Leslie Lamport vào đầu những năm 1990 để giải quyết vấn đề bầu cử trong hệ thống phân tán. Thuật toán này cho phép các quy trình trong một mạng phân tán đạt được sự đồng thuận về một giá trị duy nhất trong một môi trường có thể gặp phải các lỗi và delays. Paxos hoạt động bằng cách yêu cầu các quy trình trong hệ thống gửi các thông điệp giao tiếp cho nhau để đề xuất, chấp nhận hoặc từ chối một yêu cầu. Thuật toán bao gồm ba pha chính: prepare, promise, và accept. Trong mỗi pha, các quy trình thảo luận và thực hiện các bước cần thiết để đạt được đồng thuận. Câu hỏi: Paxos là một thuật toán được phát triển để giải quyết vấn đề gì trong hệ thống phân tán? (chọn 3)",
+  "question_type": "multiple_answers_question",
+  "answers": [
+    {
+      "answer_id": "0-0",
+      "answer_text": "Đồng thuận về một giá trị duy nhất",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-1",
+      "answer_text": "Đảm bảo tính nhất quán của dữ liệu",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-2",
+      "answer_text": "Chấp nhận và thực hiện các yêu cầu",
+      "is_correct": true
+    },
+    {
+      "answer_id": "0-3",
+      "answer_text": "Xử lý các giao tiếp giữa các quy trình",
+      "is_correct": false
+    }
+  ]
+}
 ]
